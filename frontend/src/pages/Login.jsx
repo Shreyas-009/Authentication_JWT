@@ -4,27 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-    try {
-      const res = axios
-        .post("https://authentication-jwt-backend.vercel.app/login", {
-          email,
-          password,
-        })
-        .then((res) => {
-          console.log(res.data.data);
-          localStorage.setItem("token", res.data.data);
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   const email = e.target[0].value;
+   const password = e.target[1].value;
+   try {
+     const res = await axios
+       .post("https://authentication-jwt-backend.vercel.app/login", {
+         email,
+         password,
+       })
+       .then((res) => {
+         localStorage.setItem("token", res.data.data);
 
-          alert(res.data.message);
-          navigate("/dashboard");
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+         alert(res.data.message);
+         navigate("/dashboard");
+       });
+   } catch (error) {
+     alert(error.response.data.message);
+   }
+ };
 
   return (
     <div className="w-full h-full bg-zinc-900 flex justify-center items-center">

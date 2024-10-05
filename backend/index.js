@@ -29,6 +29,9 @@ app.post("/register", (req, res) => {
       .status(400)
       .json({ message: "Please provide all the required fields" });
   }
+  if (users.some((u) => u.email === email)) {
+    return res.status(400).json({ message: "Email already exists" });
+  }
 
   users.push(user);
   res.status(200).json({ data: user, message: "every thing works fine" });

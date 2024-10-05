@@ -10,10 +10,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/");
-      return;
-    }
 
     const fetchUserProfile = async () => {
       try {
@@ -46,10 +42,20 @@ const Dashboard = () => {
   }
 
   if (error) {
-    return (
+    return user ? (
       <div className="w-full h-screen flex flex-col justify-center items-center bg-zinc-900 text-white">
         <p className="text-red-500">{error}</p>
-        <Link to="/" className="mt-4 text-blue-400 hover:underline">
+        <Link to="/login" className="mt-4 text-blue-400 hover:underline">
+          Back to Login
+        </Link>
+      </div>
+    ) : (
+      <div className="w-full h-screen flex flex-col justify-center items-center bg-zinc-900 text-white">
+        <p className="text-red-500">
+          Please log in to view your dashboard.{" "}
+          <span className="text-purple-600">UnAutherized</span>
+        </p>
+        <Link to="/login" className="mt-4 text-blue-400 hover:underline">
           Back to Login
         </Link>
       </div>

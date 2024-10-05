@@ -4,14 +4,13 @@ import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.targe);
     const username = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
     try {
-      const res = axios.post(
+      const res = await axios.post(
         "https://authentication-jwt-backend.vercel.app/register",
         {
           username,
@@ -23,7 +22,7 @@ const Register = () => {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   };
   return (
